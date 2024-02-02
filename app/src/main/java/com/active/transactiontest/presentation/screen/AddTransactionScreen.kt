@@ -8,14 +8,17 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -30,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,15 +43,17 @@ import com.active.transactiontest.ui.theme.TransactionTestTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(onLoginClick: (String, String) -> Unit) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+fun AddTransactionScreen(onCreateClick: (Int, String, Boolean) -> Unit) {
+    var value by remember { mutableStateOf("") }
+    var concept by remember { mutableStateOf("") }
+    var withdraw by remember { mutableStateOf(false) }
 
     // Animation states
-    var isUsernameShaking by remember { mutableStateOf(false) }
-    var isPasswordShaking by remember { mutableStateOf(false) }
+    var isValueShaking by remember { mutableStateOf(false) }
+    var isConceptShaking by remember { mutableStateOf(false) }
     val infiniteTransition = rememberInfiniteTransition()
 
     val shakeOffset by infiniteTransition.animateFloat(
@@ -59,16 +65,16 @@ fun LoginScreen(onLoginClick: (String, String) -> Unit) {
         )
     )
 
-    LaunchedEffect(isUsernameShaking) {
+    LaunchedEffect(isValueShaking) {
         launch {
             delay(500)
-            isUsernameShaking = false
+            isValueShaking = false
         }
     }
-    LaunchedEffect(isPasswordShaking) {
+    LaunchedEffect(isConceptShaking) {
         launch {
             delay(500)
-            isPasswordShaking = false
+            isConceptShaking = false
         }
     }
 
@@ -80,36 +86,51 @@ fun LoginScreen(onLoginClick: (String, String) -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         OutlinedTextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text("Username") },
-            isError = isUsernameShaking && username.isEmpty(),
+            value = value,
+            onValueChange = { value = it },
+            label = { Text("Valor") },
+            isError = isValueShaking && value.isEmpty(),
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             modifier = Modifier
-                .offset(x = if (isUsernameShaking) shakeOffset.dp else 0.dp)
+                .offset(x = if (isValueShaking) shakeOffset.dp else 0.dp)
                 .fillMaxWidth(),
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
+            value = concept,
+            onValueChange = { concept = it },
+            label = { Text("Concepto") },
             visualTransformation = PasswordVisualTransformation(),
-            isError = isPasswordShaking && password.isEmpty(),
+            isError = isConceptShaking && concept.isEmpty(),
             modifier = Modifier
-                .offset(x = if (isPasswordShaking) shakeOffset.dp else 0.dp)
+                .offset(x = if (isConceptShaking) shakeOffset.dp else 0.dp)
                 .fillMaxWidth(),
         )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(vertical = 8.dp)
+        ) {
+            Checkbox(
+                checked = withdraw,
+                onCheckedChange = { withdraw = it },
+                modifier = Modifier.padding(end = 8.dp)
+            )
+            Text("Es retiro")
+        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
             onClick =
             {
-                isUsernameShaking = username.isEmpty()
-                isPasswordShaking = password.isEmpty()
-                onLoginClick(username, password)
+                isValueShaking = value.isEmpty()
+                isConceptShaking = concept.isEmpty()
+                onCreateClick(value.toIntOrNull()?:0, concept, withdraw)
             },
             colors =  ButtonDefaults.buttonColors(colorResource(id = R.color.purple_700)),
             modifier = Modifier
@@ -117,7 +138,7 @@ fun LoginScreen(onLoginClick: (String, String) -> Unit) {
                 .fillMaxWidth(),
         ) {
             Text(
-                text = "Login",
+                text = "Crear Transaccion",
                 style = TextStyle(
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
@@ -130,8 +151,8 @@ fun LoginScreen(onLoginClick: (String, String) -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun LoginPreview() {
+fun AddTransPreview() {
     TransactionTestTheme {
-        LoginScreen{ _, _ -> }
+        AddTransactionScreen{ _, _, _ -> }
     }
 }

@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.active.transactiontest.presentation.screen.SplashScreen
+import androidx.navigation.fragment.findNavController
+import com.active.transactiontest.R
+import com.active.transactiontest.presentation.screen.TransactionListScreen
 import com.active.transactiontest.presentation.viewmodel.TransactionListViewModel
 import com.active.transactiontest.presentation.viewmodel.TransactionSharedViewModel
 
@@ -27,7 +29,11 @@ class TransactionListFragment: Fragment() {
     ): View {
         val composeView = ComposeView(requireContext())
         composeView.setContent {
-            SplashScreen()
+            TransactionListScreen(
+                viewModel = viewModel,
+                addTransactionClick = this::goToAddTransactionFrag,
+                calculateClick = viewModel::calculateTotal
+            )
         }
         return composeView
     }
@@ -35,5 +41,14 @@ class TransactionListFragment: Fragment() {
     override fun onStart() {
         super.onStart()
         sharedViewModel.enableAddButton()
+        if(sharedViewModel.refreshList.value){
+            sharedViewModel.setRefresh(false)
+        }
+    }
+
+    private fun goToAddTransactionFrag(){
+        findNavController().navigate(
+            resId = R.id.action_ListFragment_to_AddFragment
+        )
     }
 }

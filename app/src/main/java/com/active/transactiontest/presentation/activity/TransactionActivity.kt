@@ -58,6 +58,10 @@ class TransactionActivity : AppCompatActivity() {
                 finish()
                 true
             }
+            android.R.id.home  -> {
+                onBackPressedDispatcher.onBackPressed()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -73,4 +77,5 @@ class TransactionActivity : AppCompatActivity() {
             }
         }
     }
+
 }
