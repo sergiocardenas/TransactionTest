@@ -10,8 +10,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.active.transactiontest.presentation.screen.SplashScreen
 import com.active.transactiontest.presentation.viewmodel.SplashViewModel
 import com.active.transactiontest.ui.theme.TransactionTestTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SplashActivity : ComponentActivity() {
 
     private lateinit var viewModel: SplashViewModel

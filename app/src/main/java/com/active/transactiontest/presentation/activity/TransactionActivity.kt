@@ -15,8 +15,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.active.transactiontest.R
 import com.active.transactiontest.databinding.ActivityTransactionBinding
 import com.active.transactiontest.presentation.viewmodel.TransactionSharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class TransactionActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityTransactionBinding

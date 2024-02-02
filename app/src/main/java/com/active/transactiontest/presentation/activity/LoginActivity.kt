@@ -10,8 +10,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.active.transactiontest.presentation.screen.LoginScreen
 import com.active.transactiontest.presentation.viewmodel.LoginViewModel
 import com.active.transactiontest.ui.theme.TransactionTestTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
 
     private lateinit var viewModel: LoginViewModel

@@ -12,7 +12,9 @@ import com.active.transactiontest.R
 import com.active.transactiontest.presentation.screen.TransactionListScreen
 import com.active.transactiontest.presentation.viewmodel.TransactionListViewModel
 import com.active.transactiontest.presentation.viewmodel.TransactionSharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TransactionListFragment: Fragment() {
     private lateinit var viewModel: TransactionListViewModel
     private lateinit var sharedViewModel: TransactionSharedViewModel
