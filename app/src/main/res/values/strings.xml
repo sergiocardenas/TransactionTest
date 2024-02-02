@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TransactionTest</string>
+
+    <!--Navigation Component-->
+    <string name="transaction_list_title">Transactions</string>
+    <string name="add_transaction_title">Add Transactions</string>
+
+    <!--Menu Component-->
+    <string name="transaction_add_button">Add</string>
+    <string name="transaction_logout_button">Logout</string>
 </resources>

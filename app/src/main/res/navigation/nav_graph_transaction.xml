@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ListTransactionFragment">
+
+    <fragment
+        android:id="@+id/ListTransactionFragment"
+        android:name="com.active.transactiontest.presentation.fragment.TransactionListFragment"
+        android:label="@string/transaction_list_title">
+
+        <action
+            android:id="@+id/action_ListFragment_to_AddFragment"
+            app:destination="@id/AddTransactionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AddTransactionFragment"
+        android:name="com.active.transactiontest.presentation.fragment.AddTransactionFragment"
+        android:label="@string/add_transaction_title">
+
+        <action
+            android:id="@+id/action_AddFragment_to_ListFragment"
+            app:destination="@id/ListTransactionFragment" />
+    </fragment>
+</navigation>

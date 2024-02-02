@@ -17,5 +17,4 @@ class LoginViewModel() : ViewModel() {
             _hasSession.value = true
         }
     }
-
 }

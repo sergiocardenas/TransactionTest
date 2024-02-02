@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".application.TransactionApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,7 +16,6 @@
         <activity
             android:name=".presentation.activity.SplashActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.TransactionTest">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +27,11 @@
             android:name=".presentation.activity.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.TransactionTest">
+        </activity>
+        <activity
+            android:name=".presentation.activity.TransactionActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         </activity>
     </application>
 
