@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.active.transactiontest.R
 import com.active.transactiontest.presentation.screen.AddTransactionScreen
@@ -14,6 +17,8 @@ import com.active.transactiontest.presentation.screen.SplashScreen
 import com.active.transactiontest.presentation.viewmodel.TransactionAddViewModel
 import com.active.transactiontest.presentation.viewmodel.TransactionSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.onSubscription
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddTransactionFragment: Fragment() {
@@ -39,13 +44,19 @@ class AddTransactionFragment: Fragment() {
 
     override fun onStart() {
         super.onStart()
-        sharedViewModel.desableAddButton()
     }
 
     fun validateNewTransaction(value: Int, concept: String, withdraw: Boolean){
-        val result = viewModel.addNewTransaction(value, concept,withdraw)
-        if(result){
-            goToListTransactionFrag()
+        viewModel.addNewTransaction(value, concept,withdraw)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.finishAdding.collect{ result ->
+                    if (result){
+                        goToListTransactionFrag()
+                    }
+                }
+            }
         }
     }
 

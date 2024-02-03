@@ -3,6 +3,7 @@ package com.active.transactiontest.presentation.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -35,7 +36,10 @@ class SplashActivity : ComponentActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loading.collect { isLoading ->
                     if (!isLoading) {
-                        goToActivityIntent(LoginActivity::class.java)
+                        goToActivityIntent(
+                            if(viewModel.hasSession()) TransactionActivity::class.java
+                            else LoginActivity::class.java
+                        )
                         finish()
                     }
                 }

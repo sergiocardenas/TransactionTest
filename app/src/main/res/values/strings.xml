@@ -6,6 +6,5 @@
     <string name="add_transaction_title">Agregar Transacción</string>
 
     <!--Menu Component-->
-    <string name="transaction_add_button">Add</string>
     <string name="transaction_logout_button">Logout</string>
 </resources>

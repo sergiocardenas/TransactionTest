@@ -102,7 +102,6 @@ fun AddTransactionScreen(onCreateClick: (Int, String, Boolean) -> Unit) {
             value = concept,
             onValueChange = { concept = it },
             label = { Text("Concepto") },
-            visualTransformation = PasswordVisualTransformation(),
             isError = isConceptShaking && concept.isEmpty(),
             modifier = Modifier
                 .offset(x = if (isConceptShaking) shakeOffset.dp else 0.dp)

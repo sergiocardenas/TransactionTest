@@ -81,7 +81,7 @@ fun TransactionListScreen(
         }
 
         Text(
-            text = "Your total amount is "+totalAmount.value.toString(),
+            text = "Tu balance total es "+totalAmount.value.toString(),
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(0.1f)

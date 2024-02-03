@@ -42,9 +42,9 @@ class TransactionListFragment: Fragment() {
 
     override fun onStart() {
         super.onStart()
-        sharedViewModel.enableAddButton()
         if(sharedViewModel.refreshList.value){
             sharedViewModel.setRefresh(false)
+            viewModel.getTransactionList()
         }
     }
 

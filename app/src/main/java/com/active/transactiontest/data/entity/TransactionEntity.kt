@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class TransactionEntity(
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int? = null,
     @ColumnInfo(name = "value") val value : Int = 0,
     @ColumnInfo(name = "concept") val concept : String = "",
     @ColumnInfo(name = "withdraw") val withdraw: Boolean = false

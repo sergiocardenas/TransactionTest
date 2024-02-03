@@ -17,7 +17,6 @@ fun TransactionEntity.toModel () = TransactionModel(
 )
 
 fun TransactionModel.toEntity () = TransactionEntity(
-    id = -1,
     value = this.value,
     concept = this.concept,
     withdraw = this.withdraw

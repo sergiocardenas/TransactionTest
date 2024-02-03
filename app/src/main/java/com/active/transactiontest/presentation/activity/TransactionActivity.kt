@@ -24,7 +24,6 @@ class TransactionActivity : AppCompatActivity() {
     private lateinit var binding : ActivityTransactionBinding
     private lateinit var navController: NavController
     private lateinit var sharedViewModel: TransactionSharedViewModel
-    private var addTransactionItem : MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,26 +37,18 @@ class TransactionActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment_content_main)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-        observeValues()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.transaction_menu, menu)
-        addTransactionItem = menu.findItem(R.id.action_add)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_add -> {
-                navController.navigate(
-                    resId = R.id.action_ListFragment_to_AddFragment
-                )
-                true
-            }
             R.id.action_logout -> {
-                goToActivityIntent(LoginActivity::class.java)
-                finish()
+                sharedViewModel.initLogout()
+                listenToLogout()
                 true
             }
             android.R.id.home  -> {
@@ -68,16 +59,16 @@ class TransactionActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeValues() {
+    fun listenToLogout(){
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                sharedViewModel.addEnable.collect { addEbable ->
-                    addTransactionItem?.let {
-                        it.isEnabled = addEbable
+                sharedViewModel.logoutSuccess.collect { finished ->
+                    if(finished){
+                        goToActivityIntent(LoginActivity::class.java)
+                        finish()
                     }
                 }
             }
         }
     }
-
 }
