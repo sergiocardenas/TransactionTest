@@ -1,4 +1,4 @@
-package com.active.transactiontest.presentation.State
+package com.active.transactiontest.presentation.state
 
 data class LoginState(
     val username : String = "",

@@ -1,7 +1,7 @@
 package com.active.transactiontest.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.active.transactiontest.presentation.State.TransactionState
+import com.active.transactiontest.presentation.state.TransactionState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,6 +1,6 @@
-package com.active.transactiontest.presentation.State
+package com.active.transactiontest.domain.model
 
-data class TransactionState(
+data class TransactionModel(
     val value : Int = 0,
     val concept : String = "",
     val withdraw: Boolean = false

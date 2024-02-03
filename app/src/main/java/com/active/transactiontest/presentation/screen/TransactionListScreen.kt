@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.active.transactiontest.R
-import com.active.transactiontest.presentation.State.TransactionState
+import com.active.transactiontest.presentation.state.TransactionState
 import com.active.transactiontest.presentation.viewmodel.TransactionListViewModel
 import com.active.transactiontest.ui.theme.TransactionTestTheme
 
