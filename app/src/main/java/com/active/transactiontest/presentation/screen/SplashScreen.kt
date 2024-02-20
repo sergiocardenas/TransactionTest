@@ -26,7 +26,7 @@ fun SplashScreen() {
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            SplashName("Active One")
+            SplashName("Transaction")
         }
     }
 }
